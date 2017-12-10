@@ -23,7 +23,7 @@ const double Lf = 2.67;
 
 double ref_cte = 0;
 double ref_epsi = 0;
-double ref_v = 100;
+double ref_v = 40;
 
 size_t x_start = 0;
 size_t y_start = x_start + N;
@@ -255,9 +255,9 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   result.push_back(solution.x[delta_start]);
   result.push_back(solution.x[a_start]);
   
-  for (int t = 1; t < N; t++){
-	  result.push_back(solution.x[x_start + t]);
-	  result.push_back(solution.x[y_start + t]);
+  for (int i = 0; i < N-1; i++){
+	  result.push_back(solution.x[x_start + i + 1]);
+	  result.push_back(solution.x[y_start + i + 1]);
   }
   
   return result;
