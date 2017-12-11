@@ -23,7 +23,7 @@ const double Lf = 2.67;
 
 double ref_cte = 0;
 double ref_epsi = 0;
-double ref_v = 40;
+double ref_v = 100;
 
 size_t x_start = 0;
 size_t y_start = x_start + N;
@@ -50,8 +50,8 @@ class FG_eval {
 	
 	// cost of the reference state.
 	for (int t = 0; t < N; t++) {
-      fg[0] += 2000*CppAD::pow(vars[cte_start + t] - ref_cte, 2);
-      fg[0] += 2000*CppAD::pow(vars[epsi_start + t]- ref_epsi, 2);
+      fg[0] += 3000*CppAD::pow(vars[cte_start + t] - ref_cte, 2);
+      fg[0] += 3000*CppAD::pow(vars[epsi_start + t]- ref_epsi, 2);
       fg[0] += CppAD::pow(vars[v_start + t] - ref_v, 2);
     }
 
@@ -95,8 +95,8 @@ class FG_eval {
 	  AD<double> delta0 = vars[delta_start + t - 1];
 	  AD<double> a0 = vars[a_start + t - 1];
 
-	  AD<double> f0 = coeffs[0] + coeffs[1] * x0 + coeffs[2] * x0 * x0 + coeffs[3] * x0 * x0 * x0 ;
-	  AD<double> psides0 = CppAD::atan(3*coeffs[3]* x0 * x0 + 2*coeffs[2]* x0 + coeffs[1]);
+	  AD<double> f0 = coeffs[0] + coeffs[1] * x0 + coeffs[2] * CppAD::pow(x0, 2) + coeffs[3] * CppAD::pow(x0, 3);
+      AD<double> psides0 = CppAD::atan(coeffs[1] + 2 * coeffs[2] * x0 + 3 * coeffs[3] * CppAD::pow(x0, 2));
 
 	  // Here's `x` to get you started.
 	  // The idea here is to constraint this value to be 0.
@@ -110,12 +110,12 @@ class FG_eval {
 	  // epsi[t] = psi[t] - psides[t-1] + v[t-1] * delta[t-1] / Lf * dt
 	  fg[1 + x_start + t] = x1 - (x0 + v0 * CppAD::cos(psi0) * dt);
 	  fg[1 + y_start + t] = y1 - (y0 + v0 * CppAD::sin(psi0) * dt);
-	  fg[1 + psi_start + t] = psi1 - (psi0 + v0 * delta0 / Lf * dt);
+	  fg[1 + psi_start + t] = psi1 - (psi0 + v0/Lf  * delta0 * dt);
 	  fg[1 + v_start + t] = v1 - (v0 + a0 * dt);
 	  fg[1 + cte_start + t] =
 		  cte1 - ((f0 - y0) + (v0 * CppAD::sin(epsi0) * dt));
 	  fg[1 + epsi_start + t] =
-		  epsi1 - ((psi0 - psides0) + v0 * delta0 / Lf * dt);
+		  epsi1 - ((psi0 - psides0) + (v0/Lf * delta0 * dt));
 	}
 
   }
@@ -151,7 +151,7 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   // SHOULD BE 0 besides initial state.
   Dvector vars(n_vars);
   for (int i = 0; i < n_vars; i++) {
-    vars[i] = 0.0;
+    vars[i] = 0;
   }
   // Set the initial variable values
   vars[x_start] = x;
@@ -164,12 +164,12 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   // Lower and upper limits for x
   Dvector vars_lowerbound(n_vars);
   Dvector vars_upperbound(n_vars);
+  
   // TODO: Set lower and upper limits for variables.
   for(int i = 0; i < delta_start; i++){
 	  vars_lowerbound[i] = -1.0e19;
 	  vars_upperbound[i] = 1.0e19;
   }
-
   
  // The upper and lower limits of delta are set to -25 and 25
   // degrees (values in radians).

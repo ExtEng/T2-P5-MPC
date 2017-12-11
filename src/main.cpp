@@ -107,7 +107,7 @@ int main() {
 		  double* ptry = &ptsy[0];
 		  Eigen::Map<Eigen::VectorXd> ptsy_transform(ptry,6);
 		  
-		  auto coeffs = polyfit(ptsx_transform,ptsy_transform,3);
+		  auto coeffs = polyfit(ptsx_transform, ptsy_transform, 3);
 		  
 		  double cte = polyeval(coeffs,0);
 		  double epsi = -atan(coeffs[1]);
@@ -116,7 +116,7 @@ int main() {
           double throttle_value = j[1]["throttle"];
 
 		  Eigen::VectorXd state(6);
-		  state<<0, 0, 0, v, cte, epsi;
+		  state<< 0, 0, 0, v, cte, epsi;
           /*
           * TODO: Calculate steering angle and throttle using MPC.
           *
@@ -130,7 +130,7 @@ int main() {
           json msgJson;
           // NOTE: Remember to divide by deg2rad(25) before you send the steering value back.
           // Otherwise the values will be in between [-deg2rad(25), deg2rad(25] instead of [-1, 1].
-		  double Lf = 2.67;
+		  //double Lf = 2.67;
 		  
           msgJson["steering_angle"] = vars[0]/(deg2rad(25));
           msgJson["throttle"] = vars[1];
