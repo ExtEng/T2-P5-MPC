@@ -112,7 +112,7 @@ class FG_eval {
 	  // epsi[t] = psi[t] - psides[t-1] + v[t-1] * delta[t-1] / Lf * dt
 	  fg[1 + x_start + t] = x1 - (x0 + v0 * CppAD::cos(psi0) * dt);
 	  fg[1 + y_start + t] = y1 - (y0 + v0 * CppAD::sin(psi0) * dt);
-	  fg[1 + psi_start + t] = psi1 - (psi0 + v0/Lf  * delta0 * dt);
+	  fg[1 + psi_start + t] = psi1 - (psi0 - v0/Lf  * delta0 * dt);
 	  fg[1 + v_start + t] = v1 - (v0 + a0 * dt);
 	  fg[1 + cte_start + t] =
 		  cte1 - ((f0 - y0) + (v0 * CppAD::sin(epsi0) * dt));
