@@ -116,21 +116,36 @@ int main() {
           double throttle_value = j[1]["throttle"];
 
 		  Eigen::VectorXd state(6);
-		  state<< 0, 0, 0, v, cte, epsi;
+		  
+		  //Move one step 0.1 s in time
+		  double Lf = 2.67;
+		  double dt = 0.1;
+		  double psi1 = (v/Lf)*steer_value*deg2rad(25)*dt
+		  double v1 = v*throttle_value*dt;
+		  double cte1 = cte + (v*sin(epsi)*dt);
+		  double epsi1 = epsi + (v/Lf)*steer_value*deg2rad(25)*dt;
+		  
+		  state<< 0, 0, psi1, v1, cte1, epsi1;
           /*
           * TODO: Calculate steering angle and throttle using MPC.
           *
           * Both are in between [-1, 1].
           *
           */
-          
+        // x_[t+1] = x[t] + v[t] * cos(psi[t]) * dt
+        // y_[t+1] = y[t] + v[t] * sin(psi[t]) * dt
+        // psi_[t+1] = psi[t] + v[t] / Lf * delta[t] * dt
+        // v_[t+1] = v[t] + a[t] * dt
+        // cte[t+1] = f(x[t]) - y[t] + v[t] * sin(epsi[t]) * dt
+        // epsi[t+1] = psi[t] - psides[t] + v[t] / Lf * delta[t] * dt
+		
 		  auto vars = mpc.Solve(state, coeffs);
 		  
 		  
           json msgJson;
           // NOTE: Remember to divide by deg2rad(25) before you send the steering value back.
           // Otherwise the values will be in between [-deg2rad(25), deg2rad(25] instead of [-1, 1].
-		  //double Lf = 2.67;
+
 		  
           msgJson["steering_angle"] = vars[0]/(deg2rad(25));
           msgJson["throttle"] = vars[1];
