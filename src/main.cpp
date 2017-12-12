@@ -120,7 +120,7 @@ int main() {
 		  //Move one step 0.1 s in time
 		  double Lf = 2.67;
 		  double dt = 0.1;
-		  double psi1 = (v/Lf)*steer_value*deg2rad(25)*dt
+		  double psi1 = (v/Lf)*steer_value*deg2rad(25)*dt;
 		  double v1 = v*throttle_value*dt;
 		  double cte1 = cte + (v*sin(epsi)*dt);
 		  double epsi1 = epsi + (v/Lf)*steer_value*deg2rad(25)*dt;
