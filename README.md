@@ -57,7 +57,14 @@ As Suggested in the project Q & A, to simply the process, the waypoints were tra
 
 ## Model Predictive Control with Latency
 
-To deal with the 100ms latency (which simulates real world operating conditions), the car's future state (100ms) was calculated and sent to the MPC solver. This resulted in a smooth controller even at higher speeds, which previously would run into unstable oscillatory behavior.
+To deal with the 100ms latency (which simulates real world operating conditions), the car's future state (100ms) was calculated and sent to the MPC solver. The following equations were used with dt = 0.1.
+* x1 = v*dt
+* psi1 = -(v/Lf)*steer_value*dt
+* v1 = v + throttle_value*dt
+* cte1 = cte + (v*sin(epsi)*dt)
+* epsi1 = epsi - (v/Lf)*steer_value*dt
+
+This resulted in a smooth controller even at higher speeds, which previously would run into unstable oscillatory behavior.
 
 ## Results 
 
