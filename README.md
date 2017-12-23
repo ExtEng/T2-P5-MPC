@@ -1,4 +1,4 @@
-# Term 2 - Project 5 : Model Predictive Control
+# Term 2 - Project 5: Model Predictive Control
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 In this project, my goal was to use the techniques and code examples presented in the Udacity course to control a car through a circuit using MPC.
@@ -65,9 +65,10 @@ Please Click on the images to progress to the YouTube video.
 
 ### With a Reference Velocity of 200 mph 
 
-[![Click here](https://www.youtube.com/watch?v=f7e81EEYOxw/2.jpg)](https://www.youtube.com/watch?v=f7e81EEYOxw)
+[![Click here](http://img.youtube.com/vi/f7e81EEYOxw/0.jpg)](https://www.youtube.com/watch?v=f7e81EEYOxw)
+
 
 ### With a Reference Velocity of 100 mph 
 
-[![Click here](https://www.youtube.com/watch?v=O7yVbfFxbuw/2.jpg)](https://www.youtube.com/watch?v=O7yVbfFxbuw)
+[![Click here](http://img.youtube.com/vi/O7yVbfFxbuw/0.jpg)](https://www.youtube.com/watch?v=O7yVbfFxbuw)
 
