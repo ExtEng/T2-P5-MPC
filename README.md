@@ -65,9 +65,9 @@ Please Click on the images to progress to the YouTube video.
 
 ### With a Reference Velocity of 200 mph 
 
-[![IMAGE ALT TEXT HERE](https://www.youtube.com/watch?v=f7e81EEYOxw/0.jpg)](https://www.youtube.com/watch?v=f7e81EEYOxw)
+[![Click here](https://www.youtube.com/watch?v=f7e81EEYOxw/2.jpg)](https://www.youtube.com/watch?v=f7e81EEYOxw)
 
 ### With a Reference Velocity of 100 mph 
 
-[![IMAGE ALT TEXT HERE](https://www.youtube.com/watch?v=O7yVbfFxbuw/0.jpg)](https://www.youtube.com/watch?v=O7yVbfFxbuw)
+[![Click here](https://www.youtube.com/watch?v=O7yVbfFxbuw/2.jpg)](https://www.youtube.com/watch?v=O7yVbfFxbuw)
 
